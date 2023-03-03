@@ -36,7 +36,7 @@ void identify(Base& p)
 {
 	try
 	{
-		A& a = dynamic_cast<A&>(p);
+		dynamic_cast<A&>(p);
 		std::cout << "type is A" << std::endl;
 		return;
 	}
@@ -45,7 +45,7 @@ void identify(Base& p)
 
 	try
 	{
-		B& b = dynamic_cast<B&>(p);
+		dynamic_cast<B&>(p);
 		std::cout << "type is B" << std::endl;
 		return;
 	}
@@ -54,7 +54,7 @@ void identify(Base& p)
 
 	try
 	{
-		C& c = dynamic_cast<C&>(p);
+		dynamic_cast<C&>(p);
 		std::cout << "type is C" << std::endl;
 		return;
 	}
