@@ -1,8 +1,5 @@
 #include <cmath>
-#include <cstdlib>
 #include <iostream>
-#include <limits>
-#include <cctype>
 
 #include "ScalarConverter.h"
 
@@ -30,6 +27,8 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+	std::cout.precision(1);
+	std::cout << std::fixed;
 	if (std::isnan(d) || std::isinf(d))
 	{
 		std::cout << "char:  impossible" << std::endl;
