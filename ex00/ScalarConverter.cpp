@@ -1,16 +1,25 @@
 #include <climits>
 #include <cmath>
+#include <cstddef>
+#include <stdexcept>
+#include <iostream>
 
 #include "ScalarConverter.h"
 
 double ScalarConverter::convert(std::string s)
 {
+	std::size_t pos;
 
-	char *pEnd = NULL;
-	double d = std::strtod(s.c_str(), &pEnd);
-	if (pEnd == s.c_str())
-		throw FailConvert();
-	else if (pEnd == NULL)
-		throw FailConvert();
+	double d;
+	try
+	{
+		d = std::stod(s.c_str(), &pos);
+	}
+	catch (std::invalid_argument& e)
+	{
+		if (s.length() == 1)
+			return s[0];
+		throw e;
+	}
 	return d;
 }

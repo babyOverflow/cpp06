@@ -1,9 +1,19 @@
 #include <cmath>
+#include <exception>
 #include <iostream>
 
 #include "ScalarConverter.h"
 
 
+bool ex00Isinf(double d)
+{
+	double zero = 0;
+	double posinf = 1 / zero;
+	double naginf = - 1 / zero;
+	if (d == posinf || d == naginf)
+		return true;
+	return false;
+}
 
 int main(int argc, char *argv[])
 {
@@ -12,13 +22,13 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-
+	std::string arg(argv[1]);
 	double d;
 	try
 	{
-		d = ScalarConverter::convert(argv[1]);
+		d = ScalarConverter::convert(arg);
 	}
-	catch (ScalarConverter::FailConvert &e)
+	catch (std::exception &e)
 	{
 		std::cout << "char:  impossible" << std::endl;
 		std::cout << "int: impossible"<< std::endl;
@@ -29,7 +39,7 @@ int main(int argc, char *argv[])
 
 	std::cout.precision(1);
 	std::cout << std::fixed;
-	if (std::isnan(d) || std::isinf(d))
+	if (d != d || ex00Isinf(d))
 	{
 		std::cout << "char:  impossible" << std::endl;
 		std::cout << "int: impossible"<< std::endl;
