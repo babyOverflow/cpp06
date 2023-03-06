@@ -1,5 +1,7 @@
 #include <exception>
-#include <string>
+#include <random>
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include <typeinfo>
 #include "Base.h"
@@ -36,7 +38,7 @@ void identify(Base& p)
 {
 	try
 	{
-		dynamic_cast<A&>(p);
+		(void)dynamic_cast<A&>(p);
 		std::cout << "type is A" << std::endl;
 		return;
 	}
@@ -45,7 +47,7 @@ void identify(Base& p)
 
 	try
 	{
-		dynamic_cast<B&>(p);
+		(void)dynamic_cast<B&>(p);
 		std::cout << "type is B" << std::endl;
 		return;
 	}
@@ -54,7 +56,7 @@ void identify(Base& p)
 
 	try
 	{
-		dynamic_cast<C&>(p);
+		(void)dynamic_cast<C&>(p);
 		std::cout << "type is C" << std::endl;
 		return;
 	}
@@ -63,8 +65,23 @@ void identify(Base& p)
 	std::cout << "type is not ABC" << std::endl;
 }
 
+Base * generate(void)
+{
+	int d = std::rand() % 3;
+	switch (d) {
+		case 0:
+		return new A();
+		case 1:
+		return new B();
+		case 2:
+		return new C();
+	}
+	return new Base();
+}
+
 int main()
 {
+	std::srand(std::time(0));
 	Base* bptr = NULL;
 
 	identify(bptr);
@@ -83,6 +100,10 @@ int main()
 
 	Base* cptr = &cref;
 	identify(cptr);
+
+	Base* randObj = generate();
+	identify(randObj);
+	delete randObj;
 
 	delete bptr;
 }

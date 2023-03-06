@@ -3,7 +3,8 @@ NAME := xCast
 CC := c++
 CFLAG := -Wall -Wextra -Werror
 
-SRC := main.cpp 
+SRC := main.cpp \
+	Serializer.cpp
 
 
 $(NAME): $(SRC)

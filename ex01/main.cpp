@@ -1,17 +1,7 @@
 #include <cstdint>
 #include <iostream>
-#include "Data.h"
-
-
-uintptr_t serialize(Data* ptr)
-{
-	return reinterpret_cast<uintptr_t>(ptr);
-}
-
-Data* deserialize(uintptr_t raw)
-{
-	return reinterpret_cast<Data*>(raw);
-}
+#include <iomanip>
+#include "Serializer.h"
 
 int main()
 {
@@ -19,11 +9,19 @@ int main()
 		1, 2, 3, "123", 'c'
 	};
 
-	uintptr_t p = serialize(&data);
-	Data* pdata = deserialize(p);
+	uintptr_t p = Serializer::serialize(&data);
+	Data* pdata = Serializer::deserialize(p);
 
+	std::cout << std::hex << p << std::endl;
+	std::cout <<  pdata << std::endl;
 	if (pdata == &data)
 		std::cout << "same\n"; 
 	else
 		std::cout << "diff\n"; 
+	std::cout << "Data {\n\t" 
+			  << pdata->a << ",\n\t"
+			  << pdata->b << ",\n\t"
+			  << pdata->c << ",\n\t"
+			  << pdata->str << ",\n\t"
+			  << pdata->d << ",\n}"  << std::endl;
 }
